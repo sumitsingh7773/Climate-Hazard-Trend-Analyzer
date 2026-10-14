@@ -122,5 +122,43 @@ class ApiEndpointsTests(unittest.TestCase):
         self.assertIn("weather_records_count", stats)
         self.assertIn("cached_analyses_count", stats)
 
+    def test_cors_options_preflight_vercel_origin(self):
+        origin = "https://climate-hazard-trend-analyzer-silk.vercel.app"
+        response = self.client.options(
+            "/api/regions",
+            headers={
+                "Origin": origin,
+                "Access-Control-Request-Method": "GET",
+                "Access-Control-Request-Headers": "content-type",
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.headers.get("access-control-allow-origin"), origin)
+        self.assertIn("GET", response.headers.get("access-control-allow-methods", ""))
+        self.assertEqual(response.headers.get("access-control-allow-credentials"), "true")
+
+    def test_cors_get_vercel_origin(self):
+        origin = "https://climate-hazard-trend-analyzer-silk.vercel.app"
+        response = self.client.get(
+            "/api/regions",
+            headers={"Origin": origin},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.headers.get("access-control-allow-origin"), origin)
+        self.assertEqual(response.headers.get("access-control-allow-credentials"), "true")
+
+    def test_cors_disallowed_origin(self):
+        origin = "https://unauthorized-domain.example.com"
+        response = self.client.options(
+            "/api/regions",
+            headers={
+                "Origin": origin,
+                "Access-Control-Request-Method": "GET",
+            },
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.text, "Disallowed CORS origin")
+
 if __name__ == "__main__":
     unittest.main()
+

@@ -32,9 +32,9 @@ app = FastAPI(
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
-# CORS configuration supporting localhost, 127.0.0.1 on any port and configured origin
+# CORS configuration supporting exact Vercel frontend, localhost/127.0.0.1 on any port, and configured origin
 cors_origins = [
-    settings.frontend_origin,
+    "https://climate-hazard-trend-analyzer-silk.vercel.app",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "http://localhost:3000",
@@ -42,9 +42,15 @@ cors_origins = [
     "http://localhost:4173",
     "http://127.0.0.1:4173",
 ]
+if settings.frontend_origin:
+    for origin in settings.frontend_origin.split(","):
+        clean_origin = origin.strip().rstrip("/")
+        if clean_origin and clean_origin not in cors_origins:
+            cors_origins.append(clean_origin)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=list(set(cors_origins)),
+    allow_origins=cors_origins,
     allow_origin_regex=r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$",
     allow_credentials=True,
     allow_methods=["*"],
