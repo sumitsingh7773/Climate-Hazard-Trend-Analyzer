@@ -355,27 +355,3 @@ Command: `tsc -b && vite build` in `frontend`
 3. Set environment variable: `VITE_API_BASE_URL=https://<your-backend-api-url>`.
 
 ---
-
-## 12. AI Tools Usage Disclosure
-
-In compliance with case study standards:
-- **AI Coding Assistant (Antigravity):** Used for code refactoring, TypeScript type expansion, implementing WMO climate formulas (R95p, Consecutive Dry Days), structuring test cases, diagnosing CORS/process port collisions, and compiling documentation.
-- All generated code was executed, tested, and validated against live Open-Meteo APIs and verified through interactive browser testing.
-
----
-
-## 13. Final Submission Checklist
-
-- [x] Backend route `GET /api/regions` implemented and tested with 12 metropolitan presets.
-- [x] Backend route `GET /api/analysis/heatwave` implemented with 3+ day 95th-percentile logic.
-- [x] Backend routes for Extreme Rainfall and Drought implemented with standard WMO thresholds.
-- [x] CORS middleware configured to handle all local and production origins without 405 preflight errors.
-- [x] Real historical weather data fetched from Open-Meteo with dual-variable caching.
-- [x] MongoDB Atlas persistence supported with graceful, non-blocking in-memory fallback.
-- [x] Moving averages (3-yr, 5-yr) and OLS linear regression ($y = mx + c$, $R^2$) computed.
-- [x] React UI completed with presets, custom lat/lon inputs, interactive Leaflet map, dual charts, and event table.
-- [x] CSV and PDF print report export implemented.
-- [x] 19 automated backend tests passing (`Ran 19 tests in 0.169s - OK`).
-- [x] Frontend type-checking and production build passing (`tsc -b && vite build - OK`).
-- [x] Live browser verification completed (dashboard active on `localhost:5173`).
-- [ ] Production cloud deployment (marked as **PENDING USER APPROVAL**).

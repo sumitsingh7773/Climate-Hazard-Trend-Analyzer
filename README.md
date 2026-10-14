@@ -308,9 +308,3 @@ CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 | `VITE_API_BASE_URL` | Deployed backend URL | `https://your-backend-api.onrender.com` |
 
 ---
-
-## 🤖 AI Tools Usage Disclosure
-
-In compliance with Dygnify Ventures Case Study requirements, the following AI tools assisted in the completion of this project:
-- **Claude / Gemini / Antigravity Agent:** Used for architectural planning, implementing climatological formulas (WMO R95p, Consecutive Dry Days), structuring TypeScript interfaces, expanding test suites, and writing automated documentation.
-- All generated code was thoroughly validated, executed, and verified against real Open-Meteo data with end-to-end unit and integration testing.
